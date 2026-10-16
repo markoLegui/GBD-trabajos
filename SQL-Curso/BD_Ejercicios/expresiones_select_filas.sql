@@ -55,3 +55,33 @@ select nomvend, v.numvend, ps.numpieza, nompieza, provincia
 from vendedor v, preciosum ps, pieza p
 where v.numvend = ps.numvend
 and provincia in ('ALICANTE', 'VALENCIA')
+
+-- 10
+select nompieza, nomvend
+from preciosum ps, vendedor v, pieza p
+where p.numpieza = ps.numpieza
+and ps.numvend = v.numvend
+and (nomvend like '% Garc_a'
+or nomvend like '% Garc_a %')
+
+-- 11
+select distinct nompieza, nomvend
+from preciosum ps, vendedor v, pieza p
+where p.numpieza = ps.numpieza
+and ps.numvend = v.numvend
+and nompieza is NOT NULL
+
+-- 12
+select nomvend
+from vendedor
+where telefono is NOT NULL
+
+-- 13
+select nompieza, pd.numvend, descuento
+from preciosum ps, pieza p, pedido pd
+where ps.numpieza = p.numpieza
+and ps.numvend = pd.numvend
+and descuento >= 1 and descuento <= 10
+and nompieza like '%O% '
+and pd.numvend >=1 and pd.numvend <= 10
+and numpedido is NOT NULL
