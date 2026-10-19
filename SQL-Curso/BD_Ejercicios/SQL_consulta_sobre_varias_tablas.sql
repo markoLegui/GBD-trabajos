@@ -71,5 +71,71 @@ from vendedor v, preciosum p
 where v.numvend = p.numvend and descuento >= 10
 
 -- Ejercicio 13
-select 
-from 
+select numpedido
+from pedido
+where numvend = 1
+
+-- Ejercicio 14
+select nomvend
+from vendedor
+order by nomvend DESC
+
+-- Ejercicio 15
+select nomvend
+from vendedor
+order by nomvend ASC
+
+-- Ejercicio 16
+select numpieza, numvend
+from preciosum
+where numvend is NOT NULL
+
+-- Ejercicio 17
+select ps.numpieza, p.nompieza, numvend
+from preciosum ps, pieza p
+where ps.numpieza = p.numpieza
+and (numvend = 2 or numvend = 4) 
+
+-- Ejercicio 18
+select distinct nompieza
+from preciosum ps, pieza p, vendedor v
+where p.numpieza = ps.numpieza 
+and nombrecomer = 'HARW S.A.'
+
+-- Ejercicio 19
+select distinct p.numpieza, nompieza, preciovent
+from pieza p, pedido pd, linped l
+where pd.numpedido = l.numpedido
+and p.numpieza = l.numpieza
+and numvend = 1
+
+-- Ejercicio 20 
+select v.numvend, nomvend, l.numpieza
+from vendedor v, linped l, preciosum ps
+where ps.numvend = v.numvend
+and ps.numpieza = l.numpieza
+and preciocompra > preciounit
+order by numvend ASC
+
+-- Ejercicio 21
+select ps.numpieza, v.numvend, nomvend, preciovent, descuento
+from vendedor v, pieza p, preciosum ps
+where p.numpieza = ps.numpieza
+and v.numvend = ps.numvend
+and (preciovent > 50 or descuento > 10)
+order by numvend ASC
+
+-- Ejercicio 22
+select nomvend, nompieza
+from pedido pd, vendedor v, linped l, pieza p
+where pd.numvend = v.numvend 
+and pd.numpedido = l.numpedido
+and l.numpieza = p.numpieza
+and fecha != '22/10/2019'
+
+-- Ejercicio 23
+select preciocompra, v.numvend, nomvend
+from linped l, pedido pd, vendedor v
+where pd.numpedido = l.numpedido
+and v.numvend = pd.numvend 
+and numpieza IN ('DD-0001-210', 'FD-0001-144')

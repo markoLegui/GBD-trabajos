@@ -77,11 +77,60 @@ from vendedor
 where telefono is NOT NULL
 
 -- 13
-select nompieza, pd.numvend, descuento
+select distinct nompieza, pd.numvend, descuento
 from preciosum ps, pieza p, pedido pd
 where ps.numpieza = p.numpieza
 and ps.numvend = pd.numvend
-and descuento >= 1 and descuento <= 10
-and nompieza like '%O% '
-and pd.numvend >=1 and pd.numvend <= 10
-and numpedido is NOT NULL
+and descuento >= 1 
+and descuento <= 10
+and nompieza like '%O%'
+and pd.numvend >=1 
+and pd.numvend <= 1000
+
+-- 14
+select nomvend
+from vendedor
+order by nomvend ASC
+
+-- 15
+select nomvend, nompieza
+from vendedor v, preciosum ps, pieza p
+where ps.numpieza = p.numpieza
+and ps.numvend = v.numvend
+order by nompieza ASC
+
+-- 16
+select nompieza
+from preciosum ps, pieza p 
+where ps.numpieza = p.numpieza
+and numvend in (100, 300, 400)
+and preciovent >= 100 and preciovent <=1000
+and preciounit >= 1 and preciounit <=500
+
+-- 17
+select nompieza, preciounit
+from preciosum ps, pieza p
+where ps.numpieza = p.numpieza
+and nompieza like 'MONITOR%'
+
+-- 18
+select distinct nompieza, provincia
+from vendedor v, preciosum ps, pieza p
+where ps.numvend = v.numvend 
+and ps.numpieza = p.numpieza
+and provincia in ('ALICANTE', 'VALENCIA', 'CASTELLON')
+
+-- 19 
+select nomvend, calle, nombrecomer
+from vendedor
+where (calle like 'CISCAR%'
+or calle like 'SALAMANCA')
+and nombrecomer = 'HARW S.A.'
+
+-- 20
+select nomvend, ps.numpieza
+from vendedor v, preciosum ps, pieza p
+where ps.numvend = v.numvend
+and ps.numpieza = p.numpieza
+and nomvend like '% MART_N% %'
+order by nomvend ASC
